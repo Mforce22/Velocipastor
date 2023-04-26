@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: {fileID: 11400000, guid: 0f14869acbd69274d9b9c22ab72acd22, type: 2}
   _Move: {fileID: -6269801820462639491, guid: 6cfab8ada81cecb49b8a2e2313381617, type: 3}
+  _ZMovePositive: {fileID: -2685247360292466694, guid: 6cfab8ada81cecb49b8a2e2313381617, type: 3}
   _Jump: {fileID: -3157138534395577827, guid: 6cfab8ada81cecb49b8a2e2313381617, type: 3}
 --- !u!1 &1152603644033404674
 GameObject:
