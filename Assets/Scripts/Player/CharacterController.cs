@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+    #region Serialized Fields
     [Header("Character Controller")]
     [SerializeField] private IdContainer _IdProvider;
 
@@ -12,14 +13,32 @@ public class CharacterController : MonoBehaviour
     [Header("Character Movement")]
     [SerializeField] private float _speed = 400f;
 
+    [Header("Player Audio Controller")]
+    [SerializeField] private CharacterSoundController _SoundController;
+
     [Header("Options Menu")]
     [SerializeField] private PauseMenuController _PauseMenu;
 
+    [Header("Character Physics")]
+    [Tooltip("The rigidbody of the character")]
+    [SerializeField] private Rigidbody _Rigidbody;
+
+    //character jump
+    [Header("Character Jump")]
+    [Tooltip("The jump speed of the character")]
+    [SerializeField] private float _JumpSpeed = 10f;
+
+    [Tooltip("The delay before the character can jump again")]
+    [SerializeField] private float _JumpDelay = 3f;
+
+    #endregion
     private PauseMenuController _PauseMenuController;
     private GameplayInputProvider _gameplayInputProvider;
     private Vector3 _moveDirection = Vector3.zero;
 
     private bool _canMove = true;
+
+    private float _jumpCountdown = 0f;
 
     private void Awake()
     {
@@ -49,11 +68,22 @@ public class CharacterController : MonoBehaviour
         if (_canMove)
         {
             transform.Translate(_moveDirection * _speed * Time.deltaTime);
+            if (_jumpCountdown > 0)
+            {
+                _jumpCountdown -= Time.deltaTime;
+            }
         }
     }
 
     private void JumpCharacter()
     {
+        if (_jumpCountdown > 0 || !_canMove)
+        {
+            return;
+        }
+        _Rigidbody.AddForce(Vector3.up * _JumpSpeed, ForceMode.Impulse);
+        _SoundController.PlayJump();
+        _jumpCountdown = _JumpDelay;
         //Debug.Log("JUMP");
     }
 
@@ -81,12 +111,18 @@ public class CharacterController : MonoBehaviour
             return;
         }
         _PauseMenuController = Instantiate(_PauseMenu);
+
+
+        _Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+
         _canMove = !_canMove;
     }
 
     private void Restart()
     {
         //Debug.Log("RESTART");
+
+        _Rigidbody.constraints = RigidbodyConstraints.None;
         _canMove = true;
     }
 
