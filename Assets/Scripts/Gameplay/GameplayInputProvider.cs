@@ -33,7 +33,7 @@ public class GameplayInputProvider : InputProvider
         _Jump.action.Enable();
         _ZMovePositive.action.Enable();
         _Pause.action.Enable();
-        Debug.Log("Gameplay Input Provider Enabled");
+        //Debug.Log("Gameplay Input Provider Enabled");
 
 
         _Move.action.performed += MovePerfomed;
@@ -49,7 +49,7 @@ public class GameplayInputProvider : InputProvider
         _Jump.action.Enable();
         _ZMovePositive.action.Enable();
         _Pause.action.Enable();
-        Debug.Log("Gameplay Input Provider Enabled Manually");
+        //Debug.Log("Gameplay Input Provider Enabled Manually");
     }
 
     private void OnDisable()
