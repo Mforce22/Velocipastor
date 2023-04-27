@@ -550,6 +550,10 @@ PrefabInstance:
       propertyPath: _speed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5290704175117806130, guid: 4deb7fccb8404904aaf96c2d4e3c5003, type: 3}
+      propertyPath: _PauseMenu
+      value: 
+      objectReference: {fileID: 6872599067814929908, guid: febdbe92111826c48975dee0ebffb298, type: 3}
     - target: {fileID: 5290704175117806131, guid: 4deb7fccb8404904aaf96c2d4e3c5003, type: 3}
       propertyPath: m_Name
       value: Character

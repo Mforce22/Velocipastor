@@ -6,7 +6,7 @@ public class InputProvider : MonoBehaviour
 {
     public delegate void OnFloatDelegate(float value);
     public delegate void OnVoidDelegate();
-    public delegate void OnBoolDelegate(bool value);//test
+    public delegate void OnBoolDelegate(bool value);
 
     [Header("Input Provider")]
     [SerializeField]

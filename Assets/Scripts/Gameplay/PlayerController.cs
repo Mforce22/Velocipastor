@@ -26,7 +26,8 @@ public class PlayerController : Singleton<PlayerController>
             return null;
         }
 
-        return  _providerDictionary[id] as T;
+        //Debug.Log("GetInput: " + id);
+        return _providerDictionary[id] as T;
     }
 
     public void EnableInputProvider(string id)
@@ -35,7 +36,6 @@ public class PlayerController : Singleton<PlayerController>
         {
             return;
         }
-
         _providerDictionary[id].gameObject.SetActive(true);
     }
     public void DisableInputProvider(string id)
