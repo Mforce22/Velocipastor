@@ -11,7 +11,7 @@ public class CharacterController : MonoBehaviour
 
 
     [Header("Character Movement")]
-    [SerializeField] private float _speed = 400f;
+    [SerializeField] private float _speed = 200f;
 
     [Header("Player Audio Controller")]
     [SerializeField] private CharacterSoundController _SoundController;
@@ -39,11 +39,13 @@ public class CharacterController : MonoBehaviour
     private bool _canMove = true;
 
     private float _jumpCountdown = 0f;
+    private float _currentSpeed;
 
     private void Awake()
     {
         _gameplayInputProvider = PlayerController.Instance.GetInput<GameplayInputProvider>(_IdProvider.Id);
         _gameplayInputProvider.EnableInput();
+        _currentSpeed = _speed;
     }
 
     private void OnEnable()
@@ -53,6 +55,7 @@ public class CharacterController : MonoBehaviour
         _gameplayInputProvider.OnZMovePositive += ZMove;
         _gameplayInputProvider.OnPause += Pause;
         _gameplayInputProvider.OnRestart += Restart;
+        _gameplayInputProvider.OnDash += Dash;
     }
     private void OnDisable()
     {
@@ -61,13 +64,14 @@ public class CharacterController : MonoBehaviour
         _gameplayInputProvider.OnZMovePositive -= ZMove;
         _gameplayInputProvider.OnPause -= Pause;
         _gameplayInputProvider.OnRestart -= Restart;
+        _gameplayInputProvider.OnDash -= Dash;
     }
 
     private void Update()
     {
         if (_canMove)
         {
-            transform.Translate(_moveDirection * _speed * Time.deltaTime);
+            transform.Translate(_moveDirection * _currentSpeed * Time.deltaTime);
             if (_jumpCountdown > 0)
             {
                 _jumpCountdown -= Time.deltaTime;
@@ -124,6 +128,12 @@ public class CharacterController : MonoBehaviour
 
         _Rigidbody.constraints = RigidbodyConstraints.None;
         _canMove = true;
+    }
+
+    private void Dash(float value)
+    {
+        Debug.Log("Dash");
+        _currentSpeed = _speed + (_speed * value);
     }
 
 
