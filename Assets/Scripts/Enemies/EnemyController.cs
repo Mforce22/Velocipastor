@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
 
 
     private GameplayInputProvider _gameplayInputProvider;
+    private float _oldSpeed;
 
     private void Awake()
     {
@@ -37,10 +38,13 @@ public class EnemyController : MonoBehaviour
     private void PlayerPower()
     {
         Debug.Log("Enemy Power");
+        _oldSpeed = _animator.speed;
+        _animator.speed = 0f;
     }
 
     private void PlayerPowerEnd()
     {
+        _animator.speed = _oldSpeed;
         Debug.Log("Enemy Power End");
     }
 }

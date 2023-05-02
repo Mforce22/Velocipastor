@@ -13,6 +13,7 @@ public class GameplayInputProvider : InputProvider
     public OnVoidDelegate OnPower;
     public OnVoidDelegate OnUsedPower;
     public OnVoidDelegate OnPowerEnd;
+    public OnVoidDelegate OnPowerDelayEnd;
     public OnVoidDelegate OnPause;
 
     public OnVoidDelegate OnRestart;

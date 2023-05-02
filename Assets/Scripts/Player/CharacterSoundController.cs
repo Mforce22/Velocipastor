@@ -10,10 +10,18 @@ public class CharacterSoundController : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField] private AudioClip _JumpClip;
+
+    [Header("Power")]
+    [SerializeField] private AudioClip _PowerClip;
     #endregion
 
     public void PlayJump()
     {
         _AudioSource.PlayOneShot(_JumpClip);
+    }
+
+    public void PlayPower()
+    {
+        _AudioSource.PlayOneShot(_PowerClip);
     }
 }

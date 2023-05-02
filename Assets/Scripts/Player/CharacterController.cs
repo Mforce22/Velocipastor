@@ -33,6 +33,8 @@ public class CharacterController : MonoBehaviour
 
 
     [Header("Character Power")]
+    [Tooltip("The duration of the power")]
+    [SerializeField] private float _PowerDuration = 5f;
     [Tooltip("The delay before the character can use the power again")]
     [SerializeField] private float _PowerDelay = 5f;
 
@@ -201,7 +203,7 @@ public class CharacterController : MonoBehaviour
             _canMove = false;
             _AnimationController.UsePower();
             _gameplayInputProvider.OnUsedPower?.Invoke();
-
+            _SoundController.PlayPower();
             _canUsePower = false;
             StartCoroutine(PowerCooldown());
         }
@@ -210,14 +212,16 @@ public class CharacterController : MonoBehaviour
     private IEnumerator PowerCooldown()
     {
         //Debug.Log("Power Cooldown");
-        yield return new WaitForSeconds(_PowerDelay / 2);
+        yield return new WaitForSeconds(_PowerDuration / 2);
         _canMove = true;
         _AnimationController.StopUsingPower();
 
-        yield return new WaitForSeconds(_PowerDelay / 2);
+        yield return new WaitForSeconds(_PowerDuration);
         //Debug.Log("Power Cooldown End");
         _gameplayInputProvider.OnPowerEnd?.Invoke();
+        yield return new WaitForSeconds(_PowerDelay);
         _canUsePower = true;
+        _gameplayInputProvider.OnPowerDelayEnd?.Invoke();
 
     }
 

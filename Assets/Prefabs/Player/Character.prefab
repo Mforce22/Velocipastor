@@ -283,6 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _AudioSource: {fileID: 7168936230278338669}
   _JumpClip: {fileID: 8300000, guid: 292be98903d648e469c7f5f8c1458d0d, type: 3}
+  _PowerClip: {fileID: 8300000, guid: 36f89f1ae9e561744a6a6d007f49d442, type: 3}
 --- !u!1001 &1486755016907550370
 PrefabInstance:
   m_ObjectHideFlags: 0
