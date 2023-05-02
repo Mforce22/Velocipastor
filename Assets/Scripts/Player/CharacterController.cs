@@ -36,11 +36,19 @@ public class CharacterController : MonoBehaviour
     [Tooltip("The delay before the character can use the power again")]
     [SerializeField] private float _PowerDelay = 5f;
 
+    [Header("Character Animation")]
+    [Tooltip("The animation controller of the character")]
+    [SerializeField] private AnimationController _AnimationController;
+
+
+    [Header("Character Game Object")]
+    [Tooltip("The Game Object of the character")]
+    [SerializeField] private GameObject _PlayerObject;
+
     #endregion
     private PauseMenuController _PauseMenuController;
     private GameplayInputProvider _gameplayInputProvider;
     private Vector3 _moveDirection = Vector3.zero;
-
     private bool _canMove = true;
     private bool _canUsePower = true;
 
@@ -80,6 +88,11 @@ public class CharacterController : MonoBehaviour
         if (_canMove)
         {
             transform.Translate(_moveDirection * _currentSpeed * Time.deltaTime);
+            if (_moveDirection != Vector3.zero)
+            {
+                _PlayerObject.transform.forward = _moveDirection;
+            }
+            //_PlayerObject.transform.rotation = Quaternion.Euler(_moveRotation);
             if (_jumpCountdown > 0)
             {
                 _jumpCountdown -= Time.deltaTime;
@@ -96,6 +109,8 @@ public class CharacterController : MonoBehaviour
         _Rigidbody.AddForce(Vector3.up * _JumpSpeed, ForceMode.Impulse);
         _SoundController.PlayJump();
         _jumpCountdown = _JumpDelay;
+        _AnimationController.Jump();
+        StartCoroutine(StopJump());
         //Debug.Log("JUMP");
     }
 
@@ -104,6 +119,15 @@ public class CharacterController : MonoBehaviour
         //move the character
         // Vector3 dir = new Vector3(value, 0, 0);
         _moveDirection = new Vector3(value, 0, _moveDirection.z);
+        if (value != 0)
+        {
+            _AnimationController.StartWalking();
+        }
+
+        if (_moveDirection == Vector3.zero)
+        {
+            _AnimationController.StopWalking();
+        }
         // transform.Translate(dir * _speed * Time.deltaTime);
         //Debug.LogFormat("Value: {0}", value);
     }
@@ -111,6 +135,15 @@ public class CharacterController : MonoBehaviour
     private void ZMove(float value)
     {
         _moveDirection = new Vector3(_moveDirection.x, 0, value);
+        if (value != 0)
+        {
+            _AnimationController.StartWalking();
+        }
+
+        if (_moveDirection == Vector3.zero)
+        {
+            _AnimationController.StopWalking();
+        }
         //Debug.Log("ZMove " + value);
     }
 
@@ -141,7 +174,23 @@ public class CharacterController : MonoBehaviour
     private void Dash(float value)
     {
         //Debug.Log("Dash");
-        _currentSpeed = _speed + (_speed * value);
+        if (_moveDirection != Vector3.zero)
+        {
+            _currentSpeed = _speed + (_speed * value);
+            if (value != 0)
+            {
+                _AnimationController.StartRunning();
+            }
+            else
+            {
+                _AnimationController.StopRunning();
+            }
+        }
+        else
+        {
+            _AnimationController.StopRunning();
+        }
+
     }
 
     private void Power()
@@ -149,6 +198,8 @@ public class CharacterController : MonoBehaviour
         if (_canUsePower)
         {
             //Debug.Log("Power Performed");
+            _canMove = false;
+            _AnimationController.UsePower();
             _gameplayInputProvider.OnUsedPower?.Invoke();
 
             _canUsePower = false;
@@ -159,12 +210,21 @@ public class CharacterController : MonoBehaviour
     private IEnumerator PowerCooldown()
     {
         //Debug.Log("Power Cooldown");
-        yield return new WaitForSeconds(_PowerDelay);
+        yield return new WaitForSeconds(_PowerDelay / 2);
+        _canMove = true;
+        _AnimationController.StopUsingPower();
+
+        yield return new WaitForSeconds(_PowerDelay / 2);
         //Debug.Log("Power Cooldown End");
         _gameplayInputProvider.OnPowerEnd?.Invoke();
         _canUsePower = true;
 
     }
 
-
+    private IEnumerator StopJump()
+    {
+        yield return new WaitForSeconds(_JumpDelay / 2);
+        _AnimationController.StopJumping();
+        //yield return new WaitForSeconds(_JumpDelay / 2);
+    }
 }
