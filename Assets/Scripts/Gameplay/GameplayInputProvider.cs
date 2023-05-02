@@ -10,11 +10,15 @@ public class GameplayInputProvider : InputProvider
     public OnFloatDelegate OnZMovePositive;
     public OnFloatDelegate OnDash;
     public OnVoidDelegate OnJump;
+    public OnVoidDelegate OnPower;
+    public OnVoidDelegate OnUsedPower;
+    public OnVoidDelegate OnPowerEnd;
     public OnVoidDelegate OnPause;
 
     public OnVoidDelegate OnRestart;
     #endregion
 
+    #region Serialized Fields
     [Header("Gameplay")]
     [SerializeField]
     private InputActionReference _Move;
@@ -31,6 +35,11 @@ public class GameplayInputProvider : InputProvider
     [SerializeField]
     private InputActionReference _Pause;
 
+    [SerializeField]
+    private InputActionReference _Power;
+    #endregion
+
+
     private void OnEnable()
     {
         _Move.action.Enable();
@@ -38,6 +47,7 @@ public class GameplayInputProvider : InputProvider
         _ZMovePositive.action.Enable();
         _Pause.action.Enable();
         _Dash.action.Enable();
+        _Power.action.Enable();
         //Debug.Log("Gameplay Input Provider Enabled");
 
 
@@ -46,6 +56,7 @@ public class GameplayInputProvider : InputProvider
         _ZMovePositive.action.performed += ZMovePositivePerfomed;
         _Pause.action.performed += PausePerfomed;
         _Dash.action.performed += DashPerfomed;
+        _Power.action.performed += PowerPerfomed;
 
     }
 
@@ -56,6 +67,7 @@ public class GameplayInputProvider : InputProvider
         _ZMovePositive.action.Enable();
         _Pause.action.Enable();
         _Dash.action.Enable();
+        _Power.action.Enable();
         //Debug.Log("Gameplay Input Provider Enabled Manually");
     }
 
@@ -66,12 +78,14 @@ public class GameplayInputProvider : InputProvider
         _ZMovePositive.action.Disable();
         _Pause.action.Disable();
         _Dash.action.Disable();
+        _Power.action.Disable();
 
         _Move.action.performed -= MovePerfomed;
         _Jump.action.performed -= JumpPerfomed;
         _ZMovePositive.action.performed -= ZMovePositivePerfomed;
         _Pause.action.performed -= PausePerfomed;
         _Dash.action.performed -= DashPerfomed;
+        _Power.action.performed -= PowerPerfomed;
 
         //Debug.Log("Gameplay Input Provider Disabled");
     }
@@ -103,6 +117,11 @@ public class GameplayInputProvider : InputProvider
     {
         float value = obj.action.ReadValue<float>();
         OnDash?.Invoke(value);
+    }
+
+    private void PowerPerfomed(InputAction.CallbackContext obj)
+    {
+        OnPower?.Invoke();
     }
 
 }

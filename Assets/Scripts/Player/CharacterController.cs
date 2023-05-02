@@ -31,12 +31,18 @@ public class CharacterController : MonoBehaviour
     [Tooltip("The delay before the character can jump again")]
     [SerializeField] private float _JumpDelay = 3f;
 
+
+    [Header("Character Power")]
+    [Tooltip("The delay before the character can use the power again")]
+    [SerializeField] private float _PowerDelay = 5f;
+
     #endregion
     private PauseMenuController _PauseMenuController;
     private GameplayInputProvider _gameplayInputProvider;
     private Vector3 _moveDirection = Vector3.zero;
 
     private bool _canMove = true;
+    private bool _canUsePower = true;
 
     private float _jumpCountdown = 0f;
     private float _currentSpeed;
@@ -56,6 +62,7 @@ public class CharacterController : MonoBehaviour
         _gameplayInputProvider.OnPause += Pause;
         _gameplayInputProvider.OnRestart += Restart;
         _gameplayInputProvider.OnDash += Dash;
+        _gameplayInputProvider.OnPower += Power;
     }
     private void OnDisable()
     {
@@ -65,6 +72,7 @@ public class CharacterController : MonoBehaviour
         _gameplayInputProvider.OnPause -= Pause;
         _gameplayInputProvider.OnRestart -= Restart;
         _gameplayInputProvider.OnDash -= Dash;
+        _gameplayInputProvider.OnPower -= Power;
     }
 
     private void Update()
@@ -132,8 +140,30 @@ public class CharacterController : MonoBehaviour
 
     private void Dash(float value)
     {
-        Debug.Log("Dash");
+        //Debug.Log("Dash");
         _currentSpeed = _speed + (_speed * value);
+    }
+
+    private void Power()
+    {
+        if (_canUsePower)
+        {
+            //Debug.Log("Power Performed");
+            _gameplayInputProvider.OnUsedPower?.Invoke();
+
+            _canUsePower = false;
+            StartCoroutine(PowerCooldown());
+        }
+    }
+
+    private IEnumerator PowerCooldown()
+    {
+        //Debug.Log("Power Cooldown");
+        yield return new WaitForSeconds(_PowerDelay);
+        //Debug.Log("Power Cooldown End");
+        _gameplayInputProvider.OnPowerEnd?.Invoke();
+        _canUsePower = true;
+
     }
 
 

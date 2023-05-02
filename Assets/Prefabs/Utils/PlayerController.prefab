@@ -50,6 +50,7 @@ MonoBehaviour:
   _Dash: {fileID: 4956021508237625987, guid: 6cfab8ada81cecb49b8a2e2313381617, type: 3}
   _Jump: {fileID: -3157138534395577827, guid: 6cfab8ada81cecb49b8a2e2313381617, type: 3}
   _Pause: {fileID: 7090982333198959955, guid: 6cfab8ada81cecb49b8a2e2313381617, type: 3}
+  _Power: {fileID: 3734249361565614036, guid: 6cfab8ada81cecb49b8a2e2313381617, type: 3}
 --- !u!1 &1152603644033404674
 GameObject:
   m_ObjectHideFlags: 0
