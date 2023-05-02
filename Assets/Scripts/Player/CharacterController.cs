@@ -176,7 +176,7 @@ public class CharacterController : MonoBehaviour
     private void Dash(float value)
     {
         //Debug.Log("Dash");
-        if (_moveDirection != Vector3.zero)
+        if (_moveDirection != Vector3.zero && _canMove)
         {
             _currentSpeed = _speed + (_speed * value);
             if (value != 0)
@@ -197,7 +197,7 @@ public class CharacterController : MonoBehaviour
 
     private void Power()
     {
-        if (_canUsePower)
+        if (_canUsePower && _canMove)
         {
             //Debug.Log("Power Performed");
             _canMove = false;
