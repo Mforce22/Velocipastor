@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 5409885541326817538}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,6 +143,7 @@ MonoBehaviour:
   _JumpDelay: 2
   _PowerDelay: 5
   _AnimationController: {fileID: 1443266631}
+  _PlayerObject: {fileID: 1757364958544319475}
 --- !u!54 &1285598153
 Rigidbody:
   m_ObjectHideFlags: 0
