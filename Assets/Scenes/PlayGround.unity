@@ -643,9 +643,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5115324461272367916, guid: da4af705f5b12134295a61650389a322, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5115324461272367917, guid: da4af705f5b12134295a61650389a322, type: 3}
       propertyPath: m_Name
       value: VirtualController
+      objectReference: {fileID: 0}
+    - target: {fileID: 5115324461272367918, guid: da4af705f5b12134295a61650389a322, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5115324461272367953, guid: da4af705f5b12134295a61650389a322, type: 3}
       propertyPath: m_Pivot.x
@@ -730,6 +738,14 @@ PrefabInstance:
     - target: {fileID: 5115324461272367953, guid: da4af705f5b12134295a61650389a322, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352749284933485473, guid: da4af705f5b12134295a61650389a322, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7859945326959417973, guid: da4af705f5b12134295a61650389a322, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da4af705f5b12134295a61650389a322, type: 3}

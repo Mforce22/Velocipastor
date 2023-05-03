@@ -24,7 +24,12 @@ public class ControlsViewController : MonoBehaviour
             case "Keyboard":
                 //_image.SourceImage = _controls[0];
                 _image.sprite = _controls[0];
-                Debug.Log(name);
+                //Debug.Log(name);
+                break;
+            case "Controller":
+                //_image.SourceImage = _controls[1];
+                _image.sprite = _controls[1];
+                //Debug.Log(name);
                 break;
             default:
                 _image.sprite = _controls[0];
