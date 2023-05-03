@@ -8,17 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Accent
-    second: {fileID: -9003920172004352368, guid: 7bceb547a18b4cf48a2e2f31f56ac58b, type: 3}
+    second: {fileID: 2100000, guid: 572f02ebd6afcfc44aa3aceeccc3ae26, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Body
-    second: {fileID: -9003920172004352368, guid: 7bc2bab7472ffcc44a7d3da78c218655, type: 3}
+    second: {fileID: 2100000, guid: 572f02ebd6afcfc44aa3aceeccc3ae26, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.002
-    second: {fileID: 9054928168843377129, guid: ab9b622388c9905488b8762f52fbe012, type: 3}
+    second: {fileID: 2100000, guid: f0c57e5a695a47f4d883d4dae72d0773, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
